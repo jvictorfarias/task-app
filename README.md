@@ -1,4 +1,3 @@
-=
 ## :rocket: The Project
 
 Simple application to learn about AdonisJS framework.
@@ -6,7 +5,7 @@ Simple application to learn about AdonisJS framework.
 ## :fire: Application Preview
 
 <div align="center"> 
-<img src="../tasks-app/.github/app.png" alt="preview"/>
+<img src=".github/app.png" alt="preview"/>
 </div>
 
 
