@@ -7,7 +7,7 @@ const { validate } = use('Validator')
 class TaskController {
 
   async index({ view }) {
-    const tasks = await Task.all()
+    const tasks = await Task.all();
 
     return view.render('tasks.index', { tasks: tasks.toJSON() })
   }
@@ -38,6 +38,35 @@ class TaskController {
     await task.delete()
 
     session.flash({ notification: 'Task deleted!' })
+
+    return response.redirect('back')
+  }
+
+  async update({ params, request, session, response }) {
+    const validation = await validate(request.all(), {
+      title: 'required|min:3|max:255'
+    })
+
+    if (validation.fails()) {
+      session.withErrors(validation.messages())
+        .flashAll()
+
+      return response.redirect('back')
+    }
+
+    const task = await Task.find(params.id)
+    task.title = request.input('title')
+    await task.save()
+
+    session.flash({ notification: 'Task updated!' })
+
+    return response.redirect('back')
+  }
+
+  async deleteAll({  session, response }) {
+    await Task.truncate()
+
+    session.flash({ notification: 'Tasks deleted!' })
 
     return response.redirect('back')
   }

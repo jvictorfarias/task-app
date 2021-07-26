@@ -47,16 +47,28 @@
                   {{ task.title }}
                 </td>
                 <td>
-                  <form action="{{ 'tasks/' + task.id + '?_method=DELETE' }}" method="POST">
-                    {{ csrfField() }}
+                  <div class="field is-grouped" style="display: flex; flex-direction: row; justify-content:center">
+                    <form action="{{ 'tasks/' + task.id + '?_method=DELETE' }}" method="POST">
+                      {{ csrfField() }}
 
-                    <button type="submit" class="button is-danger is-outlined">
-                      <span>DELETE</span>
-                      <span class="icon is-small">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                      </span>
-                    </button>
-                  </form>
+                      <button type="submit" class="button is-danger is-outlined">
+                        <span>DELETE</span>
+                        <span class="icon is-small">
+                          <i class="fa fa-times" aria-hidden="true"></i>
+                        </span>
+                      </button>
+                    </form>
+                    <form action="{{ 'tasks/' + task.id + '?_method=PATCH' }}" method="POST">
+                      <div class="" style="display: flex; flex-direction:row">
+                        <div class="control">
+                          <button type="submit" class="button is-warning" style="margin-left: 20px">
+                              EDIT
+                          </button>
+                        </div>
+                        <input class="input" type="text" name="title" value="" placeholder="" style="max-width: 50px">
+                      </div>
+                    </form>
+                  </div>
                 </td>
               </tr>
             @else
@@ -66,6 +78,17 @@
             @endeach
           </tbody>
         </table>
+        <form action="/delete" method="POST">
+          {{ csrfField() }}
+
+          <div class="" style="display: flex; flex-direction:row">
+            <div class="control">
+              <button type="submit" class="button is-danger" style="margin-left: 20px">
+                REMOVE ALL
+              </button>
+            </div>
+          </div>
+        </form>
     </div>
 @endsection
 
